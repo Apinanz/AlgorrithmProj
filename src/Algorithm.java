@@ -7,9 +7,10 @@ import java.util.*;
 public class Algorithm {
 
     private int[] numbers;
-    private int target = 6;
+    private int target = 30;
     private int totalSum = 0;
     private ArrayList<ArrayList<Integer>> results;
+    private ArrayList<Integer> sublist;
 
     private int baseWidth;
     private int baseHeight;
@@ -24,6 +25,7 @@ public class Algorithm {
 
     public Algorithm(int[] numbers) {
         this.numbers = numbers;
+        Arrays.sort(numbers);
         for (int item : numbers) {
             totalSum += item;
         }
@@ -31,7 +33,6 @@ public class Algorithm {
 
     public ArrayList<ArrayList<Integer>> run() {
         results = new ArrayList<ArrayList<Integer>>();
-
         BufferedImage image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         String maxText = target + "," + totalSum;
@@ -43,14 +44,25 @@ public class Algorithm {
         edge = new ArrayList<>();
         resultPath = new ArrayList<>();
         sumOfSubsets(new int[numbers.length], -1, totalSum, null);
-        /*for (int[] i : resultPath) {
+
+        for (int[] i : resultPath) {
+             sublist = new ArrayList<Integer>();
+            for (int num = 0; num < i.length; num++) {
+                if (i[num] == 1) {
+                    sublist.add(numbers[num]);
+                    System.out.print(numbers[num] + " ");
+
+                }
+            }
+            results.add(sublist);
+            System.out.println("");
             for (int j : i) {
                 System.out.print(j + " ");
             }
             System.out.println("");
-        }*/
+        }
 
-        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(0));
+        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(1));
         return results;
     }
 
@@ -81,9 +93,11 @@ public class Algorithm {
         if (parent != null) {
             edge.add(new Edge(parent, child));
         }
+
         if (level == numbers.length - 1) {
 
             if (sum == target) {
+
                 int[] np = new int[numbers.length];
 
                 for (int i = 0; i < numbers.length; i++) {
@@ -93,11 +107,15 @@ public class Algorithm {
             }
         } else {
             if (sum + numbers[level + 1] <= target) {
+
                 path[level + 1] = 1;
                 sumOfSubsets(path, level + 1, remainingSum - numbers[level + 1], child);
+
             }
+
             path[level + 1] = 0;
             sumOfSubsets(path, level + 1, remainingSum - numbers[level + 1], child);
+
         }
     }
 
@@ -136,7 +154,7 @@ public class Algorithm {
     }
 
     public static void main(String[] args) {
-        int[] numbers = {1,1,1,1,1,1};
+        int[] numbers = {5, 10, 12, 13, 15, 18};
         Algorithm algo = new Algorithm(numbers);
         ArrayList<ArrayList<Integer>> results = algo.run();
 
