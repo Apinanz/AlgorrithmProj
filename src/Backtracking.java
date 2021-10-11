@@ -46,27 +46,26 @@ public class Backtracking {
         sumOfSubsets(new int[numbers.length], -1, totalSum, null);
 
         for (int[] i : resultPath) {
-             sublist = new ArrayList<Integer>();
+            sublist = new ArrayList<Integer>();
             for (int num = 0; num < i.length; num++) {
                 if (i[num] == 1) {
                     sublist.add(numbers[num]);
-                    System.out.print(numbers[num] + " ");
-
                 }
             }
             results.add(sublist);
-            System.out.println("");
+
             for (int j : i) {
                 System.out.print(j + " ");
             }
             System.out.println("");
         }
 
-        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(1));
+        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(0));
         return results;
     }
 
     private void sumOfSubsets(int[] path, int level, int remainingSum, Vertex parent) {
+        //remainingSum = totalSum
         int sum = sum(path, level);
 
         String PATH = "";
@@ -75,6 +74,7 @@ public class Backtracking {
         }
         int numNode = getNumNode(PATH);
         Vertex child = null;
+
         if (level == -1) {
             child = new Vertex(sum, remainingSum, baseWidth / 2, getY(level + 1), nodeWidth(sum + "," + remainingSum), PATH, level + 1);
         } else {
@@ -106,7 +106,7 @@ public class Backtracking {
                 resultPath.add(np);
             }
         } else {
-            if (sum + numbers[level + 1] <= target) {
+            if (sum + numbers[level + 1] <= target) { //numbers[-1]
 
                 path[level + 1] = 1;
                 sumOfSubsets(path, level + 1, remainingSum - numbers[level + 1], child);

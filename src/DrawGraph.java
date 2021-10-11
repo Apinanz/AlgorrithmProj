@@ -40,6 +40,7 @@ public class DrawGraph extends JFrame {
         setLayout(new BorderLayout());
         add(scroll);
         setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
         setVisible(true);
     }
 
