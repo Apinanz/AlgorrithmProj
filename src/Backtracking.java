@@ -7,7 +7,7 @@ import java.util.*;
 public class Backtracking {
 
     private int[] numbers;
-    private int target = 30;
+    private int target;
     private int totalSum = 0;
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<Integer> sublist;
@@ -23,8 +23,9 @@ public class Backtracking {
 
     private ArrayList<int[]> resultPath;
 
-    public Backtracking(int[] numbers) {
+    public Backtracking(int[] numbers, int target) {
         this.numbers = numbers;
+        this.target = target;
         Arrays.sort(numbers);
         for (int item : numbers) {
             totalSum += item;
@@ -85,7 +86,6 @@ public class Backtracking {
             } else {
                 child = new Vertex(sum, remainingSum, parent.getX() - offset, getY(level + 1), nodeWidth(sum + "," + remainingSum), PATH, level + 1);
             }
-
         }
 
         vertex.add(child);
@@ -153,15 +153,17 @@ public class Backtracking {
         return heightPerNode + (level * distanceHeight);
     }
 
-    public static void main(String[] args) {
-        int[] numbers = {5, 10, 12, 13, 15, 18};
-        Backtracking algo = new Backtracking(numbers);
-        ArrayList<ArrayList<Integer>> results = algo.run();
-
-        for (ArrayList<Integer> a : results) {
-            System.out.println(a);
-
-        }
-
-    }
+//    public static void main(String[] args) {
+//        int[] numbers = {5, 10, 12, 13, 15, 18};
+//        Backtracking algo = new Backtracking(numbers);
+//        ArrayList<ArrayList<Integer>> results = algo.run();
+//
+//        for (ArrayList<Integer> a : results) {
+//            System.out.println(a);
+//        }
+//    }
+//    test:
+//    length 6
+//    target 30
+//    INPUT 5, 10, 12, 13, 15, 18
 }
