@@ -31,9 +31,6 @@ public class HomePage {
         Label text_solveBy_label = new Label();
         JCheckBox btk_checkbox = new JCheckBox();
         JCheckBox bab_checkbox = new JCheckBox();
-        JPanel jPanel4 = new JPanel();
-        Label text_length_label = new Label();
-        JSpinner length_spinner = new JSpinner(new SpinnerNumberModel(0, 0, 8, 1));
         JPanel jPanel3 = new JPanel();
         Label text_target_label = new Label();
         JTextField target_textField = new JTextField();
@@ -77,60 +74,29 @@ public class HomePage {
         GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
-                jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(text_solveBy_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(btk_checkbox)
-                                .addGap(43, 43, 43)
-                                .addComponent(bab_checkbox)
-                                .addContainerGap(30, Short.MAX_VALUE))
+            jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(text_solveBy_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(btk_checkbox)
+                .addGap(43, 43, 43)
+                .addComponent(bab_checkbox)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
-                jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addGap(0, 24, Short.MAX_VALUE)
-                                .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(text_solveBy_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(bab_checkbox)
-                                                .addComponent(btk_checkbox)))
-                                .addGap(29, 29, 29))
+            jPanel6Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 52, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addComponent(text_solveBy_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(bab_checkbox)
+                        .addComponent(btk_checkbox)))
+                .addGap(29, 29, 29))
         );
 
         jPanel2.add(jPanel6);
-
-        text_length_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
-        text_length_label.setText("Length");
-
-        length_spinner.setFont(new Font("Tahoma", 0, 14)); // NOI18N
-
-        GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-                jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(text_length_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(length_spinner, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(170, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-                jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGap(23, 23, 23)
-                                                .addComponent(length_spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(text_length_label, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel4);
 
         text_target_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         text_target_label.setText("Target");
@@ -141,25 +107,22 @@ public class HomePage {
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(text_target_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)
-                                .addComponent(target_textField, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(35, Short.MAX_VALUE))
+            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(text_target_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(target_textField, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(text_target_label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(23, 23, 23)
-                                                .addComponent(target_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(30, Short.MAX_VALUE))
+            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addComponent(text_target_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(target_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3);
@@ -176,26 +139,24 @@ public class HomePage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Random rand = new Random();
-                int length_rand = rand.nextInt(7 + 2);
-                length_spinner.setValue(length_rand);
-                int[] result = new int[(Integer) (length_spinner.getValue())];
+                int length_rand = rand.nextInt(8) + 1;
 
-                int sum = 0;
-                int _input = rand.nextInt(50 + 1);
+                int totalSum = 0;
+                int _input = rand.nextInt(50) + 1;
                 int[] number_inputRand = new int[length_rand];
                 number_inputRand[0] = _input;
                 String str_rand = "" + _input;
                 for (int i = 1; i < length_rand; i++) {
-                    int input = rand.nextInt(50 + 1);
+                    int input = rand.nextInt(50) + 1;
                     str_rand = str_rand + "," + input;
                     number_inputRand[i] = input;
-                    sum += number_inputRand[i];
+                    totalSum += number_inputRand[i];
                 }
                 input_textField.setText(str_rand);
                 Arrays.sort(number_inputRand);
 
-                int min = (length_rand > 1) ? number_inputRand[0] + number_inputRand[1] : number_inputRand[0];
-                int target_rand = (int) (Math.random() * (sum - min + 1)) + min; //Random number between min - max
+                int min = number_inputRand[0];
+                int target_rand = (length_rand > 1) ? (int)(Math.random() * (totalSum - min + 1)) + min : number_inputRand[0]; //Random number between min - max
                 target_textField.setText("" + target_rand);
             }
         });
@@ -203,33 +164,28 @@ public class HomePage {
         GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
-                jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(text_input_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                                .addComponent(input_textField, GroupLayout.PREFERRED_SIZE, 294, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(45, 45, 45))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                                .addComponent(random_button)
-                                                .addGap(136, 136, 136))))
+            jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(text_input_label, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(input_textField, GroupLayout.PREFERRED_SIZE, 294, GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(random_button)
+                .addGap(138, 138, 138))
         );
         jPanel5Layout.setVerticalGroup(
-                jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                                .addComponent(text_input_label, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                                .addGap(0, 14, Short.MAX_VALUE)
-                                                .addComponent(input_textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(random_button)
-                                                .addGap(36, 36, 36))))
+            jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(input_textField, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(text_input_label, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(random_button)
+                .addGap(39, 39, 39))
         );
 
         jPanel2.add(jPanel5);
@@ -237,12 +193,12 @@ public class HomePage {
         GroupLayout p2Layout = new GroupLayout(p2);
         p2.setLayout(p2Layout);
         p2Layout.setHorizontalGroup(
-                p2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            p2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
         p2Layout.setVerticalGroup(
-                p2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE)
+            p2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE)
         );
 
         frame.getContentPane().add(p2);
@@ -256,21 +212,20 @@ public class HomePage {
         process_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int length = (Integer)(length_spinner.getValue());
-                int[] result = new int[length];
+//                int length = (Integer) (length_spinner.getValue());
                 int target = Integer.parseInt(target_textField.getText());
                 String str_input = input_textField.getText();
                 str_input = str_input.replaceAll("\\D+", ",");
-                String str_output = "";
+                String[] str_output = str_input.split(",");
+                int[] result = new int[str_output.length];
 
+                String output = "";
                 for (int i = 0; i < result.length; i++) {
-                    if (str_input.indexOf(",") == -1) {
-                        result[i] = Integer.parseInt(str_input.substring(0));
-                        str_output += str_input.substring(0);
+                    result[i] = Integer.parseInt(str_output[i]);
+                    if (i < result.length - 1) {
+                        output += str_output[i] + ",";
                     } else {
-                        str_output += str_input.substring(0, str_input.indexOf(",")) + ",";
-                        result[i] = Integer.parseInt(str_input.substring(0, str_input.indexOf(",")));
-                        str_input = str_input.substring(str_input.indexOf(",") + 1);
+                        output += str_output[i];
                     }
                 }
 
@@ -280,8 +235,8 @@ public class HomePage {
                     JOptionPane.showMessageDialog(new JFrame(), "Select solution!", "Alert", JOptionPane.WARNING_MESSAGE);
                 } else if (btk_checkbox.isSelected()) { // Backtracking
 
-                    int confirm = JOptionPane.showConfirmDialog(new JFrame(), "Are you sure?\nLength : " + length_spinner.getValue() + "\nTarget : " + target + "\nINPUT : " + str_output,
-                             "Confirm...", JOptionPane.OK_CANCEL_OPTION);
+                    int confirm = JOptionPane.showConfirmDialog(new JFrame(), "Are you sure?" + "\nTarget : " + target + "\nINPUT : " + output,
+                            "Confirm...", JOptionPane.OK_CANCEL_OPTION);
                     if (confirm == 0) {
                         Backtracking b = new Backtracking(result, target);
                         b.run();
@@ -291,7 +246,7 @@ public class HomePage {
                 }
             }
         });
-
+        
         p3.add(process_button);
         frame.getContentPane().add(p3);
 
