@@ -26,7 +26,7 @@ public class GUI {
 
     public static void main(String[] args) {
         new mainFrame().setVisible(true);
-        //ไอเปรต
+        //ไอเปรต2
     }
 }
 
