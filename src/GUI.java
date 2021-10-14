@@ -56,7 +56,7 @@ class mainFrame extends JFrame {
 
         setTitle("GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        
         setResizable(false);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -260,6 +260,7 @@ class mainFrame extends JFrame {
 
         getContentPane().add(p3);
         pack();
+        setLocationRelativeTo(null);
     }
 }
 

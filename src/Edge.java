@@ -15,6 +15,7 @@ public class Edge {
     public void Draw(Graphics2D g, int[] selectPath) {
         boolean isSelect = false;
         for (int i = 0; i < end.getLevel(); i++) {
+
             int currentPath = end.getPath().charAt(i) - '0';
             if (selectPath[i] != currentPath) {
                 isSelect = false;
