@@ -8,6 +8,7 @@ public class Backtracking {
 
     private int[] numbers;
     private int target;
+    private boolean draw_bool;
     private int totalSum = 0;
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<Integer> sublist;
@@ -23,10 +24,11 @@ public class Backtracking {
 
     private ArrayList<int[]> resultPath;
 
-    public Backtracking(int[] numbers, int target) {
+    public Backtracking(int[] numbers, int target, boolean draw) {
         this.numbers = numbers;
         this.target = target;
-        Arrays.sort(numbers);
+        this.draw_bool = draw;
+        Arrays.sort(this.numbers);
         for (int item : numbers) {
             totalSum += item;
         }
@@ -61,7 +63,7 @@ public class Backtracking {
             System.out.println("");
         }
 
-        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(0));
+        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(0), draw_bool);
         return results;
     }
 
@@ -152,10 +154,14 @@ public class Backtracking {
     private int getY(int level) {
         return heightPerNode + (level * distanceHeight);
     }
+    
+    public ArrayList<int[]> getResultPath() {
+        return resultPath;
+    }
 
 //    public static void main(String[] args) {
 //        int[] numbers = {5, 10, 12, 13, 15, 18};
-//        Backtracking algo = new Backtracking(numbers);
+//        Backtracking algo = new Backtracking(numbers , 30);
 //        ArrayList<ArrayList<Integer>> results = algo.run();
 //
 //        for (ArrayList<Integer> a : results) {
@@ -163,7 +169,6 @@ public class Backtracking {
 //        }
 //    }
 //    test:
-//    length 6
 //    target 30
 //    INPUT 5, 10, 12, 13, 15, 18
 }

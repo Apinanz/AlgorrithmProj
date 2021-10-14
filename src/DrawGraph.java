@@ -10,10 +10,12 @@ public class DrawGraph extends JFrame {
     private Dimension screenSize;
     private JPanel graph;
     private JScrollPane scroll;
+    private boolean draw;
 
-    public DrawGraph(ArrayList<Vertex> vertex, ArrayList<Edge> edge, int baseWidth, int baseHeight, int[] selectPath) {
+    public DrawGraph(ArrayList<Vertex> vertex, ArrayList<Edge> edge, int baseWidth, int baseHeight, int[] selectPath, boolean draw) {
         this.vertex = vertex;
         this.edge = edge;
+        this.draw = draw;
         this.screenSize = new Dimension(baseWidth, baseHeight);
         this.graph = new JPanel() {
             @Override
@@ -36,12 +38,11 @@ public class DrawGraph extends JFrame {
         scroll.setBorder(null);
         setTitle("Graph");
         setSize(1080, 720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
         add(scroll);
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
-        setVisible(true);
+        setVisible(draw);
     }
-
 }
