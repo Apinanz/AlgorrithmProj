@@ -57,6 +57,7 @@ class mainFrame extends JFrame {
         setTitle("GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         p1.setBackground(new Color(204, 255, 204));
@@ -303,6 +304,7 @@ class frameSolution extends JFrame {
 
         setTitle("Solution");
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         p1.setToolTipText("");
