@@ -61,29 +61,29 @@ class mainFrame extends JFrame {
         setResizable(false);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        p1.setBackground(new Color(204, 255, 204));
+        p1.setBackground(new Color(245, 211, 0));
         p1.setToolTipText("");
 
-        text_header.setFont(new Font("Angsana New", 0, 36)); // NOI18N
+        text_header.setFont(new Font("TH-Sarabun-PSK", 0, 36)); // NOI18N
         text_header.setText("Subset sum Calculator");
         p1.add(text_header);
 
         getContentPane().add(p1);
         p1.getAccessibleContext().setAccessibleName("");
 
-        p2.setBackground(new Color(204, 255, 204));
+        p2.setBackground(new Color(245, 211, 0));
         p2.setToolTipText("");
 
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
 
         text_solveBy_label.setAlignment(Label.CENTER);
-        text_solveBy_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_solveBy_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         text_solveBy_label.setText("Solve By");
 
-        btk_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        btk_checkbox.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         btk_checkbox.setText("Backtracking");
 
-        bab_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        bab_checkbox.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         bab_checkbox.setText("Branch and Bound");
 
         GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
@@ -113,10 +113,10 @@ class mainFrame extends JFrame {
 
         jPanel2.add(jPanel6);
 
-        text_target_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_target_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         text_target_label.setText("Target");
 
-        target_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        target_textField.setFont(new Font("TH-Sarabun-PSK", 0, 14)); // NOI18N
         target_textField.setHorizontalAlignment(JTextField.CENTER);
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
@@ -142,13 +142,13 @@ class mainFrame extends JFrame {
 
         jPanel2.add(jPanel3);
 
-        text_input_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_input_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         text_input_label.setText("INPUT");
 
-        input_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        input_textField.setFont(new Font("TH-Sarabun-PSK", 0, 14)); // NOI18N
         input_textField.setHorizontalAlignment(JTextField.CENTER);
 
-        random_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
+        random_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
@@ -215,11 +215,11 @@ class mainFrame extends JFrame {
 
         getContentPane().add(p2);
 
-        p3.setBackground(new Color(204, 255, 204));
+        p3.setBackground(new Color(245, 211, 0));
         p3.setToolTipText("");
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
-        process_button.setFont(new Font("Tahoma", 0, 24)); // NOI18N
+        process_button.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         process_button.setText("Processing");
         process_button.addActionListener((ActionEvent e) -> {
             //                int length = (Integer) (length_spinner.getValue());
@@ -313,7 +313,7 @@ class frameSolution extends JFrame {
         p1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
         text_header.setAlignment(Label.CENTER);
-        text_header.setFont(new Font("Angsana New", 1, 36)); // NOI18N
+        text_header.setFont(new Font("TH-Sarabun-PSK", 1, 36)); // NOI18N
         text_header.setText("Subset sum Calculator");
         p1.add(text_header);
 
@@ -321,17 +321,17 @@ class frameSolution extends JFrame {
         p2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         nameSolution_text.setAlignment(Label.CENTER);
-        nameSolution_text.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        nameSolution_text.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
         nameSolution_text.setText("Solve By " + solution);
         p2.add(nameSolution_text);
 
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
-        countSolution_text.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        countSolution_text.setFont(new Font("TH Sarabun PSK", 0, 24)); // NOI18N
         countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด<จำนวนเซทคำตอบ>");
         p3.add(countSolution_text);
 
-        jTable1.setFont(new Font("Angsana New", 0, 18)); // NOI18N
+        jTable1.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
 
         for (ArrayList<Integer> i : results) {
             choice1.add("" + i);
@@ -379,7 +379,7 @@ class frameSolution extends JFrame {
 
         p5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 5));
 
-        graph_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
+        graph_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
         graph_button.setText("GRAPH");
         graph_button.addActionListener((ActionEvent e) -> {
             if ("Backtracking".equals(solution)) {
@@ -393,7 +393,7 @@ class frameSolution extends JFrame {
 
         p5.add(graph_button);
 
-        back_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
+        back_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
         back_button.setText("BACK");
         back_button.addActionListener((ActionEvent e) -> {
             setVisible(false);
