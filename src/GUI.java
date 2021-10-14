@@ -56,7 +56,7 @@ class mainFrame extends JFrame {
 
         setTitle("GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         setResizable(false);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -304,7 +304,7 @@ class frameSolution extends JFrame {
         JButton back_button = new JButton();
 
         setTitle("Solution");
-        setLocationRelativeTo(null);
+
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -336,12 +336,10 @@ class frameSolution extends JFrame {
             choice1.add("" + i);
         }
 
-        
 //        choice1.
         String[] row = new String[result.length];
-        
+
         resultPath.get(0);
-        
 
 //        DefaultTableModel model = new DefaultTableModel();
         jTable1.setModel(new DefaultTableModel(
@@ -425,6 +423,7 @@ class frameSolution extends JFrame {
                                 .addGap(0, 0, 0))
         );
         pack();
+        setLocationRelativeTo(null);
     }
 
     public void setResults(ArrayList<ArrayList<Integer>> results) {
