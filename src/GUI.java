@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -20,13 +22,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class GUI {
 
     public static void main(String[] args) {
         new mainFrame().setVisible(true);
-        //ไอเปรต2
     }
 }
 
@@ -57,33 +59,33 @@ class mainFrame extends JFrame {
 
         setTitle("GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         setResizable(false);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-        p1.setBackground(new Color(245, 211, 0));
+        p1.setBackground(new Color(0, 114, 194));
         p1.setToolTipText("");
 
-        text_header.setFont(new Font("TH-Sarabun-PSK", 0, 36)); // NOI18N
+        text_header.setFont(new Font("Angsana New", 0, 36)); // NOI18N
         text_header.setText("Subset sum Calculator");
         p1.add(text_header);
 
         getContentPane().add(p1);
         p1.getAccessibleContext().setAccessibleName("");
 
-        p2.setBackground(new Color(245, 211, 0));
+        p2.setBackground(new Color(255, 170, 28));
         p2.setToolTipText("");
 
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
 
         text_solveBy_label.setAlignment(Label.CENTER);
-        text_solveBy_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        text_solveBy_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         text_solveBy_label.setText("Solve By");
 
-        btk_checkbox.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        btk_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         btk_checkbox.setText("Backtracking");
 
-        bab_checkbox.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        bab_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         bab_checkbox.setText("Branch and Bound");
 
         GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
@@ -111,12 +113,13 @@ class mainFrame extends JFrame {
                                 .addGap(29, 29, 29))
         );
 
+        jPanel6.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel6);
 
-        text_target_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        text_target_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         text_target_label.setText("Target");
 
-        target_textField.setFont(new Font("TH-Sarabun-PSK", 0, 14)); // NOI18N
+        target_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         target_textField.setHorizontalAlignment(JTextField.CENTER);
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
@@ -140,15 +143,16 @@ class mainFrame extends JFrame {
                                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel3);
 
-        text_input_label.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        text_input_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
         text_input_label.setText("INPUT");
 
-        input_textField.setFont(new Font("TH-Sarabun-PSK", 0, 14)); // NOI18N
+        input_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
         input_textField.setHorizontalAlignment(JTextField.CENTER);
 
-        random_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
+        random_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
@@ -200,6 +204,7 @@ class mainFrame extends JFrame {
                                 .addGap(39, 39, 39))
         );
 
+        jPanel5.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel5);
 
         GroupLayout p2Layout = new GroupLayout(p2);
@@ -215,11 +220,11 @@ class mainFrame extends JFrame {
 
         getContentPane().add(p2);
 
-        p3.setBackground(new Color(245, 211, 0));
+        p3.setBackground(new Color(0, 114, 194));
         p3.setToolTipText("");
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
-        process_button.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        process_button.setFont(new Font("Tahoma", 0, 24)); // NOI18N
         process_button.setText("Processing");
         process_button.addActionListener((ActionEvent e) -> {
             //                int length = (Integer) (length_spinner.getValue());
@@ -270,6 +275,7 @@ class frameSolution extends JFrame {
     private int[] result;
     private int target;
     private String solution;
+    private static int getIndexChoice = 0;
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<int[]> resultPath;
     Backtracking backtracking;
@@ -279,7 +285,7 @@ class frameSolution extends JFrame {
         this.target = target;
         this.solution = solution;
         if ("Backtracking".equals(solution)) {
-            backtracking = new Backtracking(result, target, false);
+            backtracking = new Backtracking(result, target, false, getIndexChoice);
             setResults(backtracking.run());
             setResultPath(backtracking.getResultPath());
         } else if ("Branch and Bound".equals(solution)) {
@@ -305,7 +311,6 @@ class frameSolution extends JFrame {
         JButton back_button = new JButton();
 
         setTitle("Solution");
-        setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -313,7 +318,7 @@ class frameSolution extends JFrame {
         p1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
         text_header.setAlignment(Label.CENTER);
-        text_header.setFont(new Font("TH-Sarabun-PSK", 1, 36)); // NOI18N
+        text_header.setFont(new Font("Angsana New", 1, 36)); // NOI18N
         text_header.setText("Subset sum Calculator");
         p1.add(text_header);
 
@@ -321,69 +326,97 @@ class frameSolution extends JFrame {
         p2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         nameSolution_text.setAlignment(Label.CENTER);
-        nameSolution_text.setFont(new Font("TH-Sarabun-PSK", 0, 24)); // NOI18N
+        nameSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
         nameSolution_text.setText("Solve By " + solution);
         p2.add(nameSolution_text);
 
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
-        countSolution_text.setFont(new Font("TH Sarabun PSK", 0, 24)); // NOI18N
-        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด<จำนวนเซทคำตอบ>");
+        countSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
+        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + result.length + " >");
         p3.add(countSolution_text);
 
-        jTable1.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
+        jTable1.setFont(new Font("Angsana New", 0, 26)); // NOI18N
 
         for (ArrayList<Integer> i : results) {
             choice1.add("" + i);
         }
 
-        
-//        choice1.
-        String[] row = new String[result.length];
-        
-        resultPath.get(0);
-        
+        choice1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                getIndexChoice = choice1.getSelectedIndex();
+                int[] PATH = resultPath.get(getIndexChoice);
+                String[][] row = new String[1][PATH.length];
+                String[] state_column = new String[PATH.length];
 
-//        DefaultTableModel model = new DefaultTableModel();
-        jTable1.setModel(new DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
+                for (int i = 0; i < resultPath.get(choice1.getSelectedIndex()).length; i++) {
+                    state_column[i] = "State " + (i + 1);
                 }
-        ));
+
+                for (int i = 0; i < PATH.length; i++) {
+                    row[0][i] = "" + PATH[i];
+                }
+                DefaultTableModel table_model = new DefaultTableModel(row, state_column);
+                jTable1.setRowHeight(50);
+                jTable1.setModel(table_model);
+                DefaultTableCellRenderer d = new DefaultTableCellRenderer();
+                d.setHorizontalAlignment(JLabel.CENTER);
+                for (int i = 0; i < PATH.length; i++) {
+                    jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
+                }
+            }
+        });
+
+        getIndexChoice = choice1.getSelectedIndex();
+        int[] PATH = resultPath.get(getIndexChoice);
+        String[][] row = new String[1][PATH.length];
+        String[] state_column = new String[PATH.length];
+
+        for (int i = 0; i < PATH.length; i++) {
+            state_column[i] = "State " + (i + 1);
+            row[0][i] = "" + PATH[i];
+        }
+
+        DefaultTableModel table_model = new DefaultTableModel(row, state_column);
+        jTable1.setRowHeight(50);
+        jTable1.setModel(table_model);
+
+        DefaultTableCellRenderer d = new DefaultTableCellRenderer();
+        d.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < PATH.length; i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
+        }
+
         jScrollPane1.setViewportView(jTable1);
 
         GroupLayout p4Layout = new GroupLayout(p4);
         p4.setLayout(p4Layout);
         p4Layout.setHorizontalGroup(
-                p4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(p4Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(choice1, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
         p4Layout.setVerticalGroup(
-                p4Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(p4Layout.createSequentialGroup()
-                                .addComponent(choice1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         p5.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 5));
 
-        graph_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
+        graph_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         graph_button.setText("GRAPH");
         graph_button.addActionListener((ActionEvent e) -> {
             if ("Backtracking".equals(solution)) {
-                backtracking = new Backtracking(result, target, true);
+                backtracking = new Backtracking(result, target, true, getIndexChoice);
                 setResults(backtracking.run());
                 setResultPath(backtracking.getResultPath());
             } else if (solution.equals("Branch and Bound")) {
@@ -393,7 +426,7 @@ class frameSolution extends JFrame {
 
         p5.add(graph_button);
 
-        back_button.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
+        back_button.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         back_button.setText("BACK");
         back_button.addActionListener((ActionEvent e) -> {
             setVisible(false);
@@ -416,9 +449,9 @@ class frameSolution extends JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(p1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(p2, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(p2, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
-                                .addComponent(p3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(p3, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(p4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -426,6 +459,7 @@ class frameSolution extends JFrame {
                                 .addGap(0, 0, 0))
         );
         pack();
+        setLocationRelativeTo(null);
     }
 
     public void setResults(ArrayList<ArrayList<Integer>> results) {
