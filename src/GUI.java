@@ -326,7 +326,7 @@ class frameSolution extends JFrame {
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         countSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
-        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + result.length + " >");
+        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + resultPath.size() + " >");
         p3.add(countSolution_text);
 
         jTable1.setFont(new Font("Angsana New", 0, 26)); // NOI18N
