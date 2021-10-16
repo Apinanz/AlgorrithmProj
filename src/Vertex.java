@@ -16,7 +16,6 @@ public class Vertex {
 
     private String path;
     private int level;
-    private int numberNode;
 
     public Vertex(int sum, int totalSum, int x, int y, int width, String path, int level) {
         this.sum = sum;
@@ -27,9 +26,16 @@ public class Vertex {
         this.height = 50;
         this.font = new Font("TH Sarabun New", Font.BOLD, 20);
         this.level = level;
-        this.numberNode = numberNode;
+
         this.path = path;
 
+    }
+
+    public Vertex(int sum, String path, int width, int height) {
+        this.sum = sum;
+        this.path = path;
+        this.height = height+10;
+        this.width = width+20;
     }
 
     public int getX() {
@@ -54,6 +60,10 @@ public class Vertex {
 
     public String getPath() {
         return path;
+    }
+
+    public int getSum() {
+        return sum;
     }
 
     public void Draw(Graphics2D graphic, int[] selectPath) {

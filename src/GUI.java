@@ -341,6 +341,10 @@ class frameSolution extends JFrame {
 
         countSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
         countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + resultPath.size() + " >");
+
+        countSolution_text.setFont(new Font("TH Sarabun PSK", 0, 24)); // NOI18N
+        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด< " +results.size()+" >");
+
         p3.add(countSolution_text);
 
         jTable1.setFont(new Font("Angsana New", 0, 26)); // NOI18N
@@ -363,6 +367,23 @@ class frameSolution extends JFrame {
 
                 for (int i = 0; i < PATH.length; i++) {
                     row[0][i] = "" + PATH[i];
+
+//        choice1.
+        String[] row = new String[result.length];
+
+        resultPath.get(0);
+
+//        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(new DefaultTableModel(
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+
                 }
                 DefaultTableModel table_model = new DefaultTableModel(row, state_column);
                 jTable1.setRowHeight(50);
