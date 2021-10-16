@@ -74,7 +74,11 @@ public class Branch_Bound {
                     g.fillRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
                     g.setColor(Color.BLACK);
                     g.drawRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
+                    
                     String sum = v.getSum() + "";
+                    if(v.getSum()>target){
+                        sum = "-"+'\u221E';
+                    }
                     int width = getFontMetrics(font).stringWidth(sum);
                     int height = getFontMetrics(font).getHeight();
                     int x = (int) node.getCenterX(), y = (int) node.getCenterY();
@@ -120,6 +124,7 @@ public class Branch_Bound {
             }
         };
         JFrame frame = new JFrame("BNB");
+        panel.setPreferredSize(layout.getBounds().getBounds().getSize());
         JScrollPane scoll = new JScrollPane(panel);
         scoll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scoll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -194,8 +199,8 @@ public class Branch_Bound {
     }
 
     public static void main(String[] args) {
-        int[] numbers = {5, 10, 12, 13, 15, 18};
-        int target = 30;
+        int[] numbers = {16,15,15,15,16,15,15};
+        int target = 45;
         Branch_Bound bnb = new Branch_Bound(numbers, target);
     }
 }
