@@ -254,7 +254,14 @@ class mainFrame extends JFrame {
                         "Confirm...", JOptionPane.OK_CANCEL_OPTION);
                 if (confirm == 0) {
                     setVisible(false);
-                    new frameSolution(result, target, "Backtracking").setVisible(true);
+                    try {
+                        Backtracking backtracking = new Backtracking(result, target, false, 0);
+                        new frameSolution(result, target, "Backtracking").setVisible(true);
+                    } catch (Exception ec) {
+                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.", "Warning!",
+                                JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                    }
+                    setVisible(true);
                 }
             } else if (bab_checkbox.isSelected()) { //Branch and Bound
                 setVisible(false);
@@ -333,7 +340,7 @@ class frameSolution extends JFrame {
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         countSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
-        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + result.length + " >");
+        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + resultPath.size() + " >");
         p3.add(countSolution_text);
 
         jTable1.setFont(new Font("Angsana New", 0, 26)); // NOI18N
