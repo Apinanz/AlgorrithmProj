@@ -28,7 +28,6 @@ public class DrawGraph extends JFrame {
                 for (Edge e : edge) {
                     e.Draw(g, selectPath);
                 }
-
             }
         };
         graph.setPreferredSize(screenSize);

@@ -10,6 +10,7 @@ public class Backtracking {
     private int target;
     private boolean draw_bool;
     private int totalSum = 0;
+    private int index;
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<Integer> sublist;
 
@@ -24,10 +25,11 @@ public class Backtracking {
 
     private ArrayList<int[]> resultPath;
 
-    public Backtracking(int[] numbers, int target, boolean draw) {
+    public Backtracking(int[] numbers, int target, boolean draw, int index) {
         this.numbers = numbers;
         this.target = target;
         this.draw_bool = draw;
+        this.index = index;
         Arrays.sort(this.numbers);
         for (int item : numbers) {
             totalSum += item;
@@ -63,7 +65,7 @@ public class Backtracking {
             System.out.println("");
         }
 
-        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(0), draw_bool);
+        DrawGraph draw = new DrawGraph(vertex, edge, baseWidth, baseHeight, resultPath.get(index), draw_bool);
         return results;
     }
 
