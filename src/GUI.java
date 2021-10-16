@@ -328,7 +328,7 @@ class frameSolution extends JFrame {
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         countSolution_text.setFont(new Font("TH Sarabun PSK", 0, 24)); // NOI18N
-        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด<จำนวนเซทคำตอบ>");
+        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด< " +results.size()+" >");
         p3.add(countSolution_text);
 
         jTable1.setFont(new Font("TH-Sarabun-PSK", 0, 18)); // NOI18N
