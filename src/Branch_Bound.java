@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 import org.abego.treelayout.TreeLayout;
-import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 import org.abego.treelayout.NodeExtentProvider;
@@ -22,11 +21,20 @@ public class Branch_Bound {
     private DefaultTreeForTreeLayout<Vertex> tree;
     private Font font = new Font("TH Sarabun New", Font.BOLD, 20);
     private int[] subSet;
+    private boolean draw;
 
-    public Branch_Bound(int[] numbers, int target) {
+    private ArrayList<ArrayList<Integer>> results;
+    private ArrayList<Integer> tempResult;
+    private ArrayList<int[]> resultPath;
+
+    public Branch_Bound(int[] numbers, int target, boolean draw) {
         this.numbers = numbers;
         this.target = target;
+        this.draw = draw;
         this.subSet = new int[numbers.length];
+        resultPath = new ArrayList<>();
+        results = new ArrayList<ArrayList<Integer>>();
+        tempResult = new ArrayList<>();
         subOfSum();
 
         int x = 75, y = 150; //ความห่างแต่ละ node
@@ -74,10 +82,10 @@ public class Branch_Bound {
                     g.fillRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
                     g.setColor(Color.BLACK);
                     g.drawRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
-                    
+
                     String sum = v.getSum() + "";
-                    if(v.getSum()>target){
-                        sum = "-"+'\u221E';
+                    if (v.getSum() > target) {
+                        sum = "-" + '\u221E';
                     }
                     int width = getFontMetrics(font).stringWidth(sum);
                     int height = getFontMetrics(font).getHeight();
@@ -103,7 +111,7 @@ public class Branch_Bound {
                             }
                             isSelect = true;
                         }
-                        
+
                         Rectangle2D.Double node2 = layout.getNodeBounds().get(child);
                         g.setColor(isSelect ? Color.GREEN : Color.black);
                         int x2 = (int) node2.getCenterX(), y2 = (int) node2.getCenterY();
@@ -131,10 +139,10 @@ public class Branch_Bound {
         scoll.setBorder(null);
         frame.setLayout(new BorderLayout());
         frame.add(scoll);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 400);
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        frame.setVisible(this.draw);
     }
 
     private void subOfSum() {
@@ -160,18 +168,30 @@ public class Branch_Bound {
             Vertex parent = queue.poll();
             int index = parent.getPath().length();
             int sum = parent.getSum();
-
             if (sum == target) {
                 String path = parent.getPath();
                 for (int i = 0; i < path.length(); i++) {
                     subSet[i] = path.charAt(i) - '0';
                 }
+                tempResult.add(target);
+                results.add(tempResult);
+                resultPath.add(subSet);
+                for(ArrayList<Integer> i :results) {
+                    System.out.println(i);
+                }
+                for(int[] i : resultPath){
+                    for(int j : i) {
+                        System.out.print(j + " ");
+                    }
+                }
+
                 for (int i = path.length(); i < numbers.length; i++) {
                     subSet[i] += 0;
                 }
 
                 return;
             }
+
             for (int i = index; i < numbers.length; i++) {
                 int currentSum = sum + numbers[i];
                 String path = parent.getPath();
@@ -198,9 +218,17 @@ public class Branch_Bound {
         return new Dimension(width, height);
     }
 
+    public ArrayList<int[]> getSubset() {
+        return resultPath;
+    }
+
+    public ArrayList<ArrayList<Integer>> getNumbers() {
+        return results;
+    }
+
     public static void main(String[] args) {
-        int[] numbers = {16,15,15,15,16,15,15};
-        int target = 45;
-        Branch_Bound bnb = new Branch_Bound(numbers, target);
+        int[] numbers = {5, 10, 12, 13, 15, 18};
+        int target = 30;
+        Branch_Bound bnb = new Branch_Bound(numbers, target, true);
     }
 }
