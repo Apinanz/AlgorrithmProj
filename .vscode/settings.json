@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\chaya\\Downloads\\org.abego.treelayout.core-1.0.3.jar"
+    ]
+}

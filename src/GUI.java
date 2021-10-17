@@ -1,12 +1,15 @@
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -22,6 +25,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -66,7 +71,7 @@ class mainFrame extends JFrame {
         p1.setBackground(new Color(0, 114, 194));
         p1.setToolTipText("");
 
-        text_header.setFont(new Font("Angsana New", 0, 36)); // NOI18N
+        text_header.setFont(new Font("Angsana New", Font.BOLD, 36)); // NOI18N
         text_header.setText("Subset sum Calculator");
         p1.add(text_header);
 
@@ -79,14 +84,17 @@ class mainFrame extends JFrame {
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
 
         text_solveBy_label.setAlignment(Label.CENTER);
-        text_solveBy_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_solveBy_label.setFont(new Font("Angsana New ",Font.BOLD ,24)); // NOI18N
+        
         text_solveBy_label.setText("Solve By");
 
-        btk_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        btk_checkbox.setFont(new Font("Angsana New ",Font.ITALIC   ,16)); // NOI18N
         btk_checkbox.setText("Backtracking");
+        btk_checkbox.setBackground(new Color(255, 170, 28));
 
-        bab_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
-        bab_checkbox.setText("Branch and Bound");
+        bab_checkbox.setFont(new Font("Angsana New",Font.ITALIC  , 28)); // NOI18N
+        bab_checkbox.setText(" Branch and Bound");
+        bab_checkbox.setBackground(new Color(255, 170, 28));
 
         GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -109,7 +117,7 @@ class mainFrame extends JFrame {
         jPanel6.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel6);
 
-        text_target_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_target_label.setFont(new Font("Angsana New ",Font.BOLD ,24)); // NOI18N
         text_target_label.setText("Target");
 
         target_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
@@ -136,7 +144,7 @@ class mainFrame extends JFrame {
         jPanel3.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel3);
 
-        text_input_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_input_label.setFont(new Font("Angsana New ",Font.BOLD ,24)); // NOI18N
         text_input_label.setText("INPUT");
 
         input_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
@@ -374,15 +382,17 @@ class frameSolution extends JFrame {
         DefaultTableModel table_model = new DefaultTableModel(row, state_column);
         jTable1.setRowHeight(50);
         jTable1.setModel(table_model);
+        
 
         DefaultTableCellRenderer d = new DefaultTableCellRenderer();
         d.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < PATH.length; i++) {
             jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
         }
-
+        
         jScrollPane1.setViewportView(jTable1);
-
+       
+ 
         GroupLayout p4Layout = new GroupLayout(p4);
         p4.setLayout(p4Layout);
         p4Layout.setHorizontalGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +407,7 @@ class frameSolution extends JFrame {
                         .addGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131,
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73,
                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 22, Short.MAX_VALUE)));
 
