@@ -146,7 +146,7 @@ class mainFrame extends JFrame {
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
-            int length_rand = rand.nextInt(8) + 1;
+            int length_rand = (int) (Math.random() * (10 - 5 + 1)) + 5;
 
             int totalSum = 0;
             int _input = rand.nextInt(50) + 1;
@@ -250,8 +250,20 @@ class mainFrame extends JFrame {
                     }
                 }
             } else if (bab_checkbox.isSelected()) { // Branch and Bound
-                setVisible(false);
-                new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                        "Are you sure?" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                        JOptionPane.OK_CANCEL_OPTION);
+                if (confirm == 0) {
+                    setVisible(false);
+                    try {
+//                        Branch_Bound bnb = new Branch_Bound(result, target, false);
+                        new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                    } catch (Exception ec) {
+                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                        setVisible(true);
+                    }
+                }
             }
         });
 
@@ -272,6 +284,7 @@ class frameSolution extends JFrame {
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<int[]> resultPath;
     Backtracking backtracking;
+    Branch_Bound bnb;
 
     public frameSolution(int[] result, int target, String solution) {
         this.result = result;
@@ -283,6 +296,9 @@ class frameSolution extends JFrame {
             setResultPath(backtracking.getResultPath());
         } else if ("Branch and Bound".equals(solution)) {
             // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
+            bnb = new Branch_Bound(result, target, false);
+            setResults(bnb.getNumbers());
+            setResultPath(bnb.getSubset());
         }
         initComponents();
     }
@@ -339,7 +355,12 @@ class frameSolution extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 getIndexChoice = choice1.getSelectedIndex();
-                int[] PATH = resultPath.get(getIndexChoice);
+                int[] PATH = new int[results.size()];
+                if (solution.equals("Backtracking")) {
+                    PATH = resultPath.get(getIndexChoice);
+                } else if (solution.equals("Branch and Bound")) {
+                    PATH = resultPath.get(0);
+                }
                 String[][] row = new String[1][PATH.length];
                 String[] state_column = new String[PATH.length];
 
@@ -362,7 +383,12 @@ class frameSolution extends JFrame {
         });
 
         getIndexChoice = choice1.getSelectedIndex();
-        int[] PATH = resultPath.get(getIndexChoice);
+        int[] PATH = new int[results.size()];
+        if (solution.equals("Backtracking")) {
+            PATH = resultPath.get(getIndexChoice);
+        } else if (solution.equals("Branch and Bound")) {
+            PATH = resultPath.get(0);
+        }
         String[][] row = new String[1][PATH.length];
         String[] state_column = new String[PATH.length];
 
@@ -390,7 +416,7 @@ class frameSolution extends JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(choice1,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()));
         p4Layout.setVerticalGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p4Layout.createSequentialGroup()
@@ -412,6 +438,9 @@ class frameSolution extends JFrame {
                 setResultPath(backtracking.getResultPath());
             } else if (solution.equals("Branch and Bound")) {
                 // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
+                bnb = new Branch_Bound(result, target, true);
+                setResults(bnb.getNumbers());
+                setResultPath(bnb.getSubset());
             }
         });
 
