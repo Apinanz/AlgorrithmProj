@@ -242,12 +242,11 @@ class mainFrame extends JFrame {
                 if (confirm == 0) {
                     setVisible(false);
                     try {
-                        Backtracking backtracking = new Backtracking(result, target,false, 0);
+                        Backtracking backtracking = new Backtracking(result, target, false, 0);
                         new frameSolution(result, target, "Backtracking").setVisible(true);
                     } catch (Exception ec) {
                         JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
                                 "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                                ec.printStackTrace();
                         setVisible(true);
                     }
                 }
@@ -391,7 +390,7 @@ class frameSolution extends JFrame {
             String[] state_column = new String[PATH.length];
 
             for (int i = 0; i < PATH.length; i++) {
-                state_column[i] = "State " + (i + 1);
+                state_column[i] = "" + result[i];
                 row[0][i] = "" + PATH[i];
             }
 
@@ -408,7 +407,7 @@ class frameSolution extends JFrame {
             jScrollPane1.setViewportView(jTable1);
 
         } else if ("Branch and Bound".equals(solution)) {
-            
+
             choice1.add("" + branch_Bound.getArraySubset());
 
             int[] PATH = branch_Bound.getSubSet();
