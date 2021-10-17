@@ -247,6 +247,7 @@ class mainFrame extends JFrame {
                     } catch (Exception ec) {
                         JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
                                 "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                                ec.printStackTrace();
                         setVisible(true);
                     }
                 }
@@ -260,7 +261,7 @@ class mainFrame extends JFrame {
                     try {
                         Branch_Bound branch_Bound = new Branch_Bound(result, target);
                         new frameSolution(result, target, "Branch and Bound").setVisible(true);
-                    } catch (Exception ecc) {
+                    } catch (Exception ec) {
                         JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
                                 "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                         setVisible(true);

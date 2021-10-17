@@ -30,6 +30,15 @@ public class Branch_Bound {
         this.subSet = new int[numbers.length];
         subOfSum();
 
+        boolean flag = false;
+        for (int num = 0; num < subSet.length; num++) {
+            if (subSet[num] == 1) {
+                flag = true;
+            }
+        }
+        if(flag == false){
+            int x = 1/0;
+        }
     }
 
     public void run() {
