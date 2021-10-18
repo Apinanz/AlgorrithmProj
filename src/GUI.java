@@ -229,8 +229,22 @@ class mainFrame extends JFrame {
             }
 
             if (btk_checkbox.isSelected() && bab_checkbox.isSelected()) {
-                JOptionPane.showMessageDialog(new JFrame(), "Select only one solution!", "Alert",
-                        JOptionPane.WARNING_MESSAGE);
+                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                        "Backtracking & Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                        JOptionPane.OK_CANCEL_OPTION);
+                if (confirm == 0) {
+                    setVisible(false);
+                    try {
+                        Backtracking backtracking = new Backtracking(result, target, false, 0);
+                        new frameSolution(result, target, "Backtracking").setVisible(true);
+                        Branch_Bound branch_Bound = new Branch_Bound(result, target);
+                        new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                    } catch (Exception ec) {
+                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                        setVisible(true);
+                    }
+                }
             } else if (!btk_checkbox.isSelected() && !bab_checkbox.isSelected()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Select solution!", "Alert", JOptionPane.WARNING_MESSAGE);
             } else if (btk_checkbox.isSelected()) { // Backtracking
