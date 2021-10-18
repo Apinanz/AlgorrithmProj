@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.lang.Character.Subset;
 import java.util.*;
 import javax.swing.*;
 import org.abego.treelayout.TreeLayout;
@@ -29,7 +30,10 @@ public class Branch_Bound {
         this.subSet = new int[numbers.length];
         subOfSum();
 
-        int x = 75, y = 150; //ความห่างแต่ละ node
+    }
+
+    public void run() {
+        int x = 75, y = 150; // ความห่างแต่ละ node
         DefaultConfiguration<Vertex> config = new DefaultConfiguration<>(y, x);
         NodeExtentProvider<Vertex> extent = new NodeExtentProvider<Vertex>() {
             @Override
@@ -43,6 +47,7 @@ public class Branch_Bound {
             }
 
         };
+
         TreeLayout<Vertex> layout = new TreeLayout<>(tree, extent, config);
         JPanel panel = new JPanel() {
             @Override
@@ -69,7 +74,7 @@ public class Branch_Bound {
                     }
 
                     Rectangle2D.Double node = layout.getNodeBounds().get(v);
-                    //g.setColor(Color.WHITE);
+                    // g.setColor(Color.WHITE);
                     g.setColor(isSelect || v.getPath().length() == 0 ? Color.GREEN : Color.white);
                     g.fillRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
                     g.setColor(Color.BLACK);
@@ -107,7 +112,7 @@ public class Branch_Bound {
                         Rectangle2D.Double node2 = layout.getNodeBounds().get(child);
                         g.setColor(isSelect ? Color.GREEN : Color.black);
                         int x2 = (int) node2.getCenterX(), y2 = (int) node2.getCenterY();
-                        //g.setColor(Color.black);
+                        // g.setColor(Color.black);
                         g.drawLine(x1, y1 + (int) node1.getHeight() / 2, x2, y2 - (int) node2.getHeight() / 2);
                         int indexInLine = child.getPath().length();
                         String str = indexInLine + "";
@@ -131,10 +136,11 @@ public class Branch_Bound {
         scoll.setBorder(null);
         frame.setLayout(new BorderLayout());
         frame.add(scoll);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
     }
 
     private void subOfSum() {
@@ -203,8 +209,23 @@ public class Branch_Bound {
     }
 
     public static void main(String[] args) {
-        int[] numbers = {5, 10, 12, 13, 15, 18};
+        int[] numbers = { 5, 10, 12, 13, 15, 18 };
         int target = 30;
         Branch_Bound bnb = new Branch_Bound(numbers, target);
     }
+
+    public int[] getSubSet() {
+        return subSet;
+    }
+
+    public ArrayList<Integer> getArraySubset() {
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        for (int num = 0; num < subSet.length; num++) {
+            if (subSet[num] == 1) {
+                arr.add(numbers[num]);
+            }
+        }
+        return arr;
+    }
+
 }
