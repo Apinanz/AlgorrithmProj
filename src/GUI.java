@@ -366,7 +366,7 @@ class frameSolution extends JFrame {
                     String[] state_column = new String[PATH.length];
 
                     for (int i = 0; i < resultPath.get(choice1.getSelectedIndex()).length; i++) {
-                        state_column[i] = "State " + (i + 1);
+                        state_column[i] = "" + result[i];
                     }
 
                     for (int i = 0; i < PATH.length; i++) {
