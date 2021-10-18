@@ -1,4 +1,3 @@
-
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -147,7 +146,7 @@ class mainFrame extends JFrame {
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
-            int length_rand = (int) (Math.random() * (10 - 5 + 1)) + 5;
+            int length_rand = rand.nextInt(8) + 1;
 
             int totalSum = 0;
             int _input = rand.nextInt(50) + 1;
@@ -252,31 +251,19 @@ class mainFrame extends JFrame {
                 }
             } else if (bab_checkbox.isSelected()) { // Branch and Bound
 
-
                 int confirm = JOptionPane.showConfirmDialog(new JFrame(),
                         "Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
-
-                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Are you sure?" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
-
                         JOptionPane.OK_CANCEL_OPTION);
                 if (confirm == 0) {
                     setVisible(false);
                     try {
-
                         Branch_Bound branch_Bound = new Branch_Bound(result, target);
-
-//                        Branch_Bound bnb = new Branch_Bound(result, target, false);
-
                         new frameSolution(result, target, "Branch and Bound").setVisible(true);
                     } catch (Exception ec) {
                         JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
                                 "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                         setVisible(true);
                     }
-
-
-
 
                 }
             }
@@ -299,11 +286,7 @@ class frameSolution extends JFrame {
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<int[]> resultPath;
     Backtracking backtracking;
-
     Branch_Bound branch_Bound;
-
-    Branch_Bound bnb;
-
 
     public frameSolution(int[] result, int target, String solution) {
         this.result = result;
@@ -314,14 +297,7 @@ class frameSolution extends JFrame {
             setResults(backtracking.run());
             setResultPath(backtracking.getResultPath());
         } else if ("Branch and Bound".equals(solution)) {
-
             branch_Bound = new Branch_Bound(result, target);
-
-            // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
-            bnb = new Branch_Bound(result, target, false);
-            setResults(bnb.getNumbers());
-            setResultPath(bnb.getSubset());
-
         }
         initComponents();
     }
@@ -381,7 +357,6 @@ class frameSolution extends JFrame {
                 choice1.add("" + i);
             }
 
-
             choice1.addItemListener(new ItemListener() {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
@@ -389,20 +364,6 @@ class frameSolution extends JFrame {
                     int[] PATH = resultPath.get(getIndexChoice);
                     String[][] row = new String[1][PATH.length];
                     String[] state_column = new String[PATH.length];
-
-        choice1.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                getIndexChoice = choice1.getSelectedIndex();
-                int[] PATH = new int[results.size()];
-                if (solution.equals("Backtracking")) {
-                    PATH = resultPath.get(getIndexChoice);
-                } else if (solution.equals("Branch and Bound")) {
-                    PATH = resultPath.get(0);
-                }
-                String[][] row = new String[1][PATH.length];
-                String[] state_column = new String[PATH.length];
-
 
                     for (int i = 0; i < resultPath.get(choice1.getSelectedIndex()).length; i++) {
                         state_column[i] = "State " + (i + 1);
@@ -432,21 +393,9 @@ class frameSolution extends JFrame {
                 row[0][i] = "" + PATH[i];
             }
 
-
             DefaultTableModel table_model = new DefaultTableModel(row, state_column);
             jTable1.setRowHeight(50);
             jTable1.setModel(table_model);
-
-        getIndexChoice = choice1.getSelectedIndex();
-        int[] PATH = new int[results.size()];
-        if (solution.equals("Backtracking")) {
-            PATH = resultPath.get(getIndexChoice);
-        } else if (solution.equals("Branch and Bound")) {
-            PATH = resultPath.get(0);
-        }
-        String[][] row = new String[1][PATH.length];
-        String[] state_column = new String[PATH.length];
-
 
             DefaultTableCellRenderer d = new DefaultTableCellRenderer();
             d.setHorizontalAlignment(JLabel.CENTER);
@@ -489,7 +438,7 @@ class frameSolution extends JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(choice1,
-                        javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()));
         p4Layout.setVerticalGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p4Layout.createSequentialGroup()
@@ -513,9 +462,6 @@ class frameSolution extends JFrame {
                 branch_Bound = new Branch_Bound(result, target);
                 branch_Bound.run();
                 // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
-                bnb = new Branch_Bound(result, target, true);
-                setResults(bnb.getNumbers());
-                setResultPath(bnb.getSubset());
             }
         });
 

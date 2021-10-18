@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +10,7 @@ import java.lang.Character.Subset;
 import java.util.*;
 import javax.swing.*;
 import org.abego.treelayout.TreeLayout;
+import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 import org.abego.treelayout.NodeExtentProvider;
@@ -22,20 +22,11 @@ public class Branch_Bound {
     private DefaultTreeForTreeLayout<Vertex> tree;
     private Font font = new Font("TH Sarabun New", Font.BOLD, 20);
     private int[] subSet;
-    private boolean draw;
 
-    private ArrayList<ArrayList<Integer>> results;
-    private ArrayList<Integer> tempResult;
-    private ArrayList<int[]> resultPath;
-
-    public Branch_Bound(int[] numbers, int target, boolean draw) {
+    public Branch_Bound(int[] numbers, int target) {
         this.numbers = numbers;
         this.target = target;
-        this.draw = draw;
         this.subSet = new int[numbers.length];
-        resultPath = new ArrayList<>();
-        results = new ArrayList<ArrayList<Integer>>();
-        tempResult = new ArrayList<>();
         subOfSum();
 
         boolean flag = false;
@@ -153,17 +144,10 @@ public class Branch_Bound {
         scoll.setBorder(null);
         frame.setLayout(new BorderLayout());
         frame.add(scoll);
-
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(800, 400);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(this.draw);
 
     }
 
@@ -194,17 +178,9 @@ public class Branch_Bound {
                 String path = parent.getPath();
                 for (int i = 0; i < path.length(); i++) {
                     subSet[i] = path.charAt(i) - '0';
-                }
-                tempResult.add(target);
-                results.add(tempResult);
-                resultPath.add(subSet);
-                for(ArrayList<Integer> i :results) {
-                    System.out.println(i);
-                }
-                for(int[] i : resultPath){
-                    for(int j : i) {
-                        System.out.print(j + " ");
-                    }
+                    System.out.print(subSet[i] + " ");
+                    System.out.print(numbers[i] + " " + "\n");
+
                 }
 
                 for (int i = path.length(); i < numbers.length; i++) {
@@ -240,18 +216,10 @@ public class Branch_Bound {
         return new Dimension(width, height);
     }
 
-    public ArrayList<int[]> getSubset() {
-        return resultPath;
-    }
-
-    public ArrayList<ArrayList<Integer>> getNumbers() {
-        return results;
-    }
-
     public static void main(String[] args) {
         int[] numbers = { 5, 10, 12, 13, 15, 18 };
         int target = 30;
-        Branch_Bound bnb = new Branch_Bound(numbers, target, true);
+        Branch_Bound bnb = new Branch_Bound(numbers, target);
     }
 
     public int[] getSubSet() {
