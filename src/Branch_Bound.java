@@ -144,7 +144,7 @@ public class Branch_Bound {
         scoll.setBorder(null);
         frame.setLayout(new BorderLayout());
         frame.add(scoll);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
         frame.setSize(800, 400);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

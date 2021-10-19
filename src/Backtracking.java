@@ -160,17 +160,4 @@ public class Backtracking {
     public ArrayList<int[]> getResultPath() {
         return resultPath;
     }
-
-//    public static void main(String[] args) {
-//        int[] numbers = {5, 10, 12, 13, 15, 18};
-//        Backtracking algo = new Backtracking(numbers , 30);
-//        ArrayList<ArrayList<Integer>> results = algo.run();
-//
-//        for (ArrayList<Integer> a : results) {
-//            System.out.println(a);
-//        }
-//    }
-//    test:
-//    target 30
-//    INPUT 5, 10, 12, 13, 15, 18
 }

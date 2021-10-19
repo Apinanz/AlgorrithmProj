@@ -6,7 +6,6 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -148,7 +147,7 @@ class mainFrame extends JFrame {
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
-            int length_rand = rand.nextInt(8) + 1;
+            int length_rand = (int) (Math.random() * (10 - 5 + 1)) + 5; //random 5 - 10
 
             int totalSum = 0;
             int _input = rand.nextInt(50) + 1;
@@ -477,7 +476,6 @@ class frameSolution extends JFrame {
             } else if (solution.equals("Branch and Bound")) {
                 branch_Bound = new Branch_Bound(result, target);
                 branch_Bound.run();
-                // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
             }
         });
 
