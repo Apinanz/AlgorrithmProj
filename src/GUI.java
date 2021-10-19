@@ -216,7 +216,7 @@ class mainFrame extends JFrame {
             String checkTarget = target_textField.getText().replaceAll("\\D+", ""); //check when user input character and integer
             String checkInput = input_textField.getText().replaceAll("\\D+", "");
             if (checkTarget.equals("") || checkInput.equals("")) {
-                JOptionPane.showConfirmDialog(null, "Input only Integer! Please try again.",
+                JOptionPane.showConfirmDialog(null, "Enter only Integers.! Please try again.",
                         "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
             } else {
                 int target = Integer.parseInt(checkTarget.trim());
