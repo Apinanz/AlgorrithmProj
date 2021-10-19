@@ -1,3 +1,4 @@
+
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -212,74 +213,88 @@ class mainFrame extends JFrame {
         process_button.setFont(new Font("Tahoma", 0, 24)); // NOI18N
         process_button.setText("Processing");
         process_button.addActionListener((ActionEvent e) -> {
-            // int length = (Integer) (length_spinner.getValue());
-            int target = Integer.parseInt(target_textField.getText());
-            String str_input = input_textField.getText();
-            str_input = str_input.replaceAll("\\D+", ",");
-            String[] str_output = str_input.split(",");
-            int[] result = new int[str_output.length];
-
-            String output = "";
-            for (int i = 0; i < result.length; i++) {
-                result[i] = Integer.parseInt(str_output[i]);
-                if (i < result.length - 1) {
-                    output += str_output[i] + ",";
-                } else {
-                    output += str_output[i];
+            String checkTarget = target_textField.getText().replaceAll("\\D+", ""); //check when user input character and integer
+            String checkInput = input_textField.getText().replaceAll("\\D+", "");
+            if (checkTarget.equals("") || checkInput.equals("")) {
+                JOptionPane.showConfirmDialog(null, "Input only Integer! Please try again.",
+                        "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            } else {
+                int target = Integer.parseInt(checkTarget.trim());
+                String str_input = input_textField.getText();
+                str_input = str_input.trim();
+                str_input = str_input.replaceAll("\\D+", ",");
+                if (str_input.charAt(0) == ',') {
+                    str_input = str_input.substring(1);
+                } else if (str_input.charAt(str_input.length() - 1) == ',') {
+                    str_input = str_input.substring(0, str_input.length() - 1);
+                } else if (str_input.charAt(0) == ',' && str_input.charAt(str_input.length() - 1) == ',') {
+                    str_input = str_input.substring(1);
+                    str_input = str_input.substring(0, str_input.length() - 1);
                 }
-            }
+                String[] str_output = str_input.split(",");
+                int[] result = new int[str_output.length];
 
-            if (btk_checkbox.isSelected() && bab_checkbox.isSelected()) {
-                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Backtracking & Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
-                        JOptionPane.OK_CANCEL_OPTION);
-                if (confirm == 0) {
-                    setVisible(false);
-                    try {
-                        Backtracking backtracking = new Backtracking(result, target, false, 0);
-                        new frameSolution(result, target, "Backtracking").setVisible(true);
-                        Branch_Bound branch_Bound = new Branch_Bound(result, target);
-                        new frameSolution(result, target, "Branch and Bound").setVisible(true);
-                    } catch (Exception ec) {
-                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
-                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                        setVisible(true);
+                String output = "";
+                for (int i = 0; i < result.length; i++) {
+                    result[i] = Integer.parseInt(str_output[i]);
+                    if (i < result.length - 1) {
+                        output += str_output[i] + ",";
+                    } else {
+                        output += str_output[i];
                     }
                 }
-            } else if (!btk_checkbox.isSelected() && !bab_checkbox.isSelected()) {
-                JOptionPane.showMessageDialog(new JFrame(), "Select solution!", "Alert", JOptionPane.WARNING_MESSAGE);
-            } else if (btk_checkbox.isSelected()) { // Backtracking
 
-                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Backtracking" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
-                        JOptionPane.OK_CANCEL_OPTION);
-                if (confirm == 0) {
-                    setVisible(false);
-                    try {
-                        Backtracking backtracking = new Backtracking(result, target, false, 0);
-                        new frameSolution(result, target, "Backtracking").setVisible(true);
-                    } catch (Exception ec) {
-                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
-                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                        setVisible(true);
+                if (btk_checkbox.isSelected() && bab_checkbox.isSelected()) {
+                    int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                            "Backtracking & Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                            JOptionPane.OK_CANCEL_OPTION);
+                    if (confirm == 0) {
+                        setVisible(false);
+                        try {
+                            Backtracking backtracking = new Backtracking(result, target, false, 0);
+                            new frameSolution(result, target, "Backtracking").setVisible(true);
+                            Branch_Bound branch_Bound = new Branch_Bound(result, target);
+                            new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                        } catch (Exception ec) {
+                            JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                    "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                            setVisible(true);
+                        }
                     }
-                }
-            } else if (bab_checkbox.isSelected()) { // Branch and Bound
+                } else if (!btk_checkbox.isSelected() && !bab_checkbox.isSelected()) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Select solution!", "Alert", JOptionPane.WARNING_MESSAGE);
+                } else if (btk_checkbox.isSelected()) { // Backtracking
 
-                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
-                        JOptionPane.OK_CANCEL_OPTION);
-                if (confirm == 0) {
-                    setVisible(false);
-                    try {
-                        Branch_Bound branch_Bound = new Branch_Bound(result, target);
-                        new frameSolution(result, target, "Branch and Bound").setVisible(true);
-                    } catch (Exception ec) {
-                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
-                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                        setVisible(true);
+                    int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                            "Backtracking" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                            JOptionPane.OK_CANCEL_OPTION);
+                    if (confirm == 0) {
+                        setVisible(false);
+                        try {
+                            Backtracking backtracking = new Backtracking(result, target, false, 0);
+                            new frameSolution(result, target, "Backtracking").setVisible(true);
+                        } catch (Exception ec) {
+                            JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                    "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                            setVisible(true);
+                        }
                     }
+                } else if (bab_checkbox.isSelected()) { // Branch and Bound
 
+                    int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                            "Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                            JOptionPane.OK_CANCEL_OPTION);
+                    if (confirm == 0) {
+                        setVisible(false);
+                        try {
+                            Branch_Bound branch_Bound = new Branch_Bound(result, target);
+                            new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                        } catch (Exception ec) {
+                            JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                    "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                            setVisible(true);
+                        }
+                    }
                 }
             }
         });
@@ -453,7 +468,7 @@ class frameSolution extends JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(choice1,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()));
         p4Layout.setVerticalGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p4Layout.createSequentialGroup()
