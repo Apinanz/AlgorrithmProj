@@ -1,4 +1,3 @@
-
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -7,6 +6,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -79,14 +79,16 @@ class mainFrame extends JFrame {
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
 
         text_solveBy_label.setAlignment(Label.CENTER);
-        text_solveBy_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_solveBy_label.setFont(new Font("Angsana New ", Font.BOLD, 24)); // NOI18N
         text_solveBy_label.setText("Solve By");
 
-        btk_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        btk_checkbox.setFont(new Font("Angsana New", Font.ITALIC, 28)); // NOI18N
         btk_checkbox.setText("Backtracking");
+        btk_checkbox.setBackground(new Color(255, 170, 28));
 
-        bab_checkbox.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        bab_checkbox.setFont(new Font("Angsana New", Font.ITALIC, 28)); // NOI18N
         bab_checkbox.setText("Branch and Bound");
+        bab_checkbox.setBackground(new Color(255, 170, 28));
 
         GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -109,7 +111,7 @@ class mainFrame extends JFrame {
         jPanel6.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel6);
 
-        text_target_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_target_label.setFont(new Font("Angsana New", Font.BOLD, 24)); // NOI18N
         text_target_label.setText("Target");
 
         target_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
@@ -136,7 +138,7 @@ class mainFrame extends JFrame {
         jPanel3.setBackground(new Color(255, 170, 28));
         jPanel2.add(jPanel3);
 
-        text_input_label.setFont(new Font("Angsana New", 0, 24)); // NOI18N
+        text_input_label.setFont(new Font("Angsana New", Font.BOLD, 24)); // NOI18N
         text_input_label.setText("INPUT");
 
         input_textField.setFont(new Font("Tahoma", 0, 14)); // NOI18N
@@ -146,7 +148,7 @@ class mainFrame extends JFrame {
         random_button.setText("RANDOM");
         random_button.addActionListener((ActionEvent e) -> {
             Random rand = new Random();
-            int length_rand = (int) (Math.random() * (10 - 5 + 1)) + 5;
+            int length_rand = rand.nextInt(8) + 1;
 
             int totalSum = 0;
             int _input = rand.nextInt(50) + 1;
@@ -229,14 +231,28 @@ class mainFrame extends JFrame {
             }
 
             if (btk_checkbox.isSelected() && bab_checkbox.isSelected()) {
-                JOptionPane.showMessageDialog(new JFrame(), "Select only one solution!", "Alert",
-                        JOptionPane.WARNING_MESSAGE);
+                int confirm = JOptionPane.showConfirmDialog(new JFrame(),
+                        "Backtracking & Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                        JOptionPane.OK_CANCEL_OPTION);
+                if (confirm == 0) {
+                    setVisible(false);
+                    try {
+                        Backtracking backtracking = new Backtracking(result, target, false, 0);
+                        new frameSolution(result, target, "Backtracking").setVisible(true);
+                        Branch_Bound branch_Bound = new Branch_Bound(result, target);
+                        new frameSolution(result, target, "Branch and Bound").setVisible(true);
+                    } catch (Exception ec) {
+                        JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
+                                "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                        setVisible(true);
+                    }
+                }
             } else if (!btk_checkbox.isSelected() && !bab_checkbox.isSelected()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Select solution!", "Alert", JOptionPane.WARNING_MESSAGE);
             } else if (btk_checkbox.isSelected()) { // Backtracking
 
                 int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Are you sure?" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                        "Backtracking" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
                         JOptionPane.OK_CANCEL_OPTION);
                 if (confirm == 0) {
                     setVisible(false);
@@ -250,19 +266,21 @@ class mainFrame extends JFrame {
                     }
                 }
             } else if (bab_checkbox.isSelected()) { // Branch and Bound
+
                 int confirm = JOptionPane.showConfirmDialog(new JFrame(),
-                        "Are you sure?" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
+                        "Branch and Bound" + "\nTarget : " + target + "\nINPUT : " + output, "Confirm...",
                         JOptionPane.OK_CANCEL_OPTION);
                 if (confirm == 0) {
                     setVisible(false);
                     try {
-//                        Branch_Bound bnb = new Branch_Bound(result, target, false);
+                        Branch_Bound branch_Bound = new Branch_Bound(result, target);
                         new frameSolution(result, target, "Branch and Bound").setVisible(true);
                     } catch (Exception ec) {
                         JOptionPane.showConfirmDialog(null, "Not Found solution of target! Please try again.",
                                 "Warning!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                         setVisible(true);
                     }
+
                 }
             }
         });
@@ -284,7 +302,7 @@ class frameSolution extends JFrame {
     private ArrayList<ArrayList<Integer>> results;
     private ArrayList<int[]> resultPath;
     Backtracking backtracking;
-    Branch_Bound bnb;
+    Branch_Bound branch_Bound;
 
     public frameSolution(int[] result, int target, String solution) {
         this.result = result;
@@ -295,10 +313,7 @@ class frameSolution extends JFrame {
             setResults(backtracking.run());
             setResultPath(backtracking.getResultPath());
         } else if ("Branch and Bound".equals(solution)) {
-            // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
-            bnb = new Branch_Bound(result, target, false);
-            setResults(bnb.getNumbers());
-            setResultPath(bnb.getSubset());
+            branch_Bound = new Branch_Bound(result, target);
         }
         initComponents();
     }
@@ -342,72 +357,95 @@ class frameSolution extends JFrame {
         p3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 
         countSolution_text.setFont(new Font("Angsana New", 0, 30)); // NOI18N
-        countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + resultPath.size() + " >");
+
+        if ("Backtracking".equals(solution)) {
+            countSolution_text.setText("จำนวนของเซทคำตอบทั้งหมด < " + resultPath.size() + " >");
+        } else if ("Branch and Bound".equals(solution)) {
+            countSolution_text.setText("เซตคำตอบคือ " + branch_Bound.getArraySubset());
+        }
+
         p3.add(countSolution_text);
 
         jTable1.setFont(new Font("Angsana New", 0, 26)); // NOI18N
 
-        for (ArrayList<Integer> i : results) {
-            choice1.add("" + i);
-        }
-
-        choice1.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                getIndexChoice = choice1.getSelectedIndex();
-                int[] PATH = new int[results.size()];
-                if (solution.equals("Backtracking")) {
-                    PATH = resultPath.get(getIndexChoice);
-                } else if (solution.equals("Branch and Bound")) {
-                    PATH = resultPath.get(0);
-                }
-                String[][] row = new String[1][PATH.length];
-                String[] state_column = new String[PATH.length];
-
-                for (int i = 0; i < resultPath.get(choice1.getSelectedIndex()).length; i++) {
-                    state_column[i] = "State " + (i + 1);
-                }
-
-                for (int i = 0; i < PATH.length; i++) {
-                    row[0][i] = "" + PATH[i];
-                }
-                DefaultTableModel table_model = new DefaultTableModel(row, state_column);
-                jTable1.setRowHeight(50);
-                jTable1.setModel(table_model);
-                DefaultTableCellRenderer d = new DefaultTableCellRenderer();
-                d.setHorizontalAlignment(JLabel.CENTER);
-                for (int i = 0; i < PATH.length; i++) {
-                    jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
-                }
+        if ("Backtracking".equals(solution)) {
+            for (ArrayList<Integer> i : results) {
+                choice1.add("" + i);
             }
-        });
 
-        getIndexChoice = choice1.getSelectedIndex();
-        int[] PATH = new int[results.size()];
-        if (solution.equals("Backtracking")) {
-            PATH = resultPath.get(getIndexChoice);
-        } else if (solution.equals("Branch and Bound")) {
-            PATH = resultPath.get(0);
+            choice1.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    getIndexChoice = choice1.getSelectedIndex();
+                    int[] PATH = resultPath.get(getIndexChoice);
+                    String[][] row = new String[1][PATH.length];
+                    String[] state_column = new String[PATH.length];
+
+                    for (int i = 0; i < resultPath.get(choice1.getSelectedIndex()).length; i++) {
+                        state_column[i] = "" + result[i];
+                    }
+
+                    for (int i = 0; i < PATH.length; i++) {
+                        row[0][i] = "" + PATH[i];
+                    }
+                    DefaultTableModel table_model = new DefaultTableModel(row, state_column);
+                    jTable1.setRowHeight(50);
+                    jTable1.setModel(table_model);
+                    DefaultTableCellRenderer d = new DefaultTableCellRenderer();
+                    d.setHorizontalAlignment(JLabel.CENTER);
+                    for (int i = 0; i < PATH.length; i++) {
+                        jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
+                    }
+                }
+            });
+
+            getIndexChoice = choice1.getSelectedIndex();
+            int[] PATH = resultPath.get(getIndexChoice);
+            String[][] row = new String[1][PATH.length];
+            String[] state_column = new String[PATH.length];
+
+            for (int i = 0; i < PATH.length; i++) {
+                state_column[i] = "" + result[i];
+                row[0][i] = "" + PATH[i];
+            }
+
+            DefaultTableModel table_model = new DefaultTableModel(row, state_column);
+            jTable1.setRowHeight(50);
+            jTable1.setModel(table_model);
+
+            DefaultTableCellRenderer d = new DefaultTableCellRenderer();
+            d.setHorizontalAlignment(JLabel.CENTER);
+            for (int i = 0; i < PATH.length; i++) {
+                jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
+            }
+
+            jScrollPane1.setViewportView(jTable1);
+
+        } else if ("Branch and Bound".equals(solution)) {
+
+            choice1.add("" + branch_Bound.getArraySubset());
+
+            int[] PATH = branch_Bound.getSubSet();
+            String[][] row = new String[1][PATH.length];
+            String[] state_column = new String[PATH.length];
+
+            for (int i = 0; i < PATH.length; i++) {
+                state_column[i] = "" + result[i];
+                row[0][i] = "" + PATH[i];
+            }
+
+            DefaultTableModel table_model = new DefaultTableModel(row, state_column);
+            jTable1.setRowHeight(50);
+            jTable1.setModel(table_model);
+
+            DefaultTableCellRenderer d = new DefaultTableCellRenderer();
+            d.setHorizontalAlignment(JLabel.CENTER);
+            for (int i = 0; i < PATH.length; i++) {
+                jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
+            }
+
+            jScrollPane1.setViewportView(jTable1);
         }
-        String[][] row = new String[1][PATH.length];
-        String[] state_column = new String[PATH.length];
-
-        for (int i = 0; i < PATH.length; i++) {
-            state_column[i] = "State " + (i + 1);
-            row[0][i] = "" + PATH[i];
-        }
-
-        DefaultTableModel table_model = new DefaultTableModel(row, state_column);
-        jTable1.setRowHeight(50);
-        jTable1.setModel(table_model);
-
-        DefaultTableCellRenderer d = new DefaultTableCellRenderer();
-        d.setHorizontalAlignment(JLabel.CENTER);
-        for (int i = 0; i < PATH.length; i++) {
-            jTable1.getColumnModel().getColumn(i).setCellRenderer(d);
-        }
-
-        jScrollPane1.setViewportView(jTable1);
 
         GroupLayout p4Layout = new GroupLayout(p4);
         p4.setLayout(p4Layout);
@@ -416,14 +454,14 @@ class frameSolution extends JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(choice1,
-                        javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()));
         p4Layout.setVerticalGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(p4Layout.createSequentialGroup()
                         .addGroup(p4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131,
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73,
                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 22, Short.MAX_VALUE)));
 
@@ -437,10 +475,9 @@ class frameSolution extends JFrame {
                 setResults(backtracking.run());
                 setResultPath(backtracking.getResultPath());
             } else if (solution.equals("Branch and Bound")) {
+                branch_Bound = new Branch_Bound(result, target);
+                branch_Bound.run();
                 // เพิ่มโค้ดส่วนของ Algorithm Branch and Bound
-                bnb = new Branch_Bound(result, target, true);
-                setResults(bnb.getNumbers());
-                setResultPath(bnb.getSubset());
             }
         });
 
