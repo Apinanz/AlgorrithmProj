@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,9 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.lang.Character.Subset;
 import java.util.*;
 import javax.swing.*;
 import org.abego.treelayout.TreeLayout;
+import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.util.DefaultConfiguration;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 import org.abego.treelayout.NodeExtentProvider;
@@ -21,23 +22,26 @@ public class Branch_Bound {
     private DefaultTreeForTreeLayout<Vertex> tree;
     private Font font = new Font("TH Sarabun New", Font.BOLD, 20);
     private int[] subSet;
-    private boolean draw;
 
-    private ArrayList<ArrayList<Integer>> results;
-    private ArrayList<Integer> tempResult;
-    private ArrayList<int[]> resultPath;
-
-    public Branch_Bound(int[] numbers, int target, boolean draw) {
+    public Branch_Bound(int[] numbers, int target) {
         this.numbers = numbers;
         this.target = target;
-        this.draw = draw;
         this.subSet = new int[numbers.length];
-        resultPath = new ArrayList<>();
-        results = new ArrayList<ArrayList<Integer>>();
-        tempResult = new ArrayList<>();
         subOfSum();
 
-        int x = 75, y = 150; //ความห่างแต่ละ node
+        boolean flag = false;
+        for (int num = 0; num < subSet.length; num++) {
+            if (subSet[num] == 1) {
+                flag = true;
+            }
+        }
+        if(flag == false){
+            int x = 1/0;
+        }
+    }
+
+    public void run() {
+        int x = 75, y = 150; // ความห่างแต่ละ node
         DefaultConfiguration<Vertex> config = new DefaultConfiguration<>(y, x);
         NodeExtentProvider<Vertex> extent = new NodeExtentProvider<Vertex>() {
             @Override
@@ -51,6 +55,7 @@ public class Branch_Bound {
             }
 
         };
+
         TreeLayout<Vertex> layout = new TreeLayout<>(tree, extent, config);
         JPanel panel = new JPanel() {
             @Override
@@ -77,7 +82,7 @@ public class Branch_Bound {
                     }
 
                     Rectangle2D.Double node = layout.getNodeBounds().get(v);
-                    //g.setColor(Color.WHITE);
+                    // g.setColor(Color.WHITE);
                     g.setColor(isSelect || v.getPath().length() == 0 ? Color.GREEN : Color.white);
                     g.fillRect((int) node.x, (int) node.y, (int) node.width, (int) node.height);
                     g.setColor(Color.BLACK);
@@ -115,7 +120,7 @@ public class Branch_Bound {
                         Rectangle2D.Double node2 = layout.getNodeBounds().get(child);
                         g.setColor(isSelect ? Color.GREEN : Color.black);
                         int x2 = (int) node2.getCenterX(), y2 = (int) node2.getCenterY();
-                        //g.setColor(Color.black);
+                        // g.setColor(Color.black);
                         g.drawLine(x1, y1 + (int) node1.getHeight() / 2, x2, y2 - (int) node2.getHeight() / 2);
                         int indexInLine = child.getPath().length();
                         String str = indexInLine + "";
@@ -139,10 +144,11 @@ public class Branch_Bound {
         scoll.setBorder(null);
         frame.setLayout(new BorderLayout());
         frame.add(scoll);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);;
         frame.setSize(800, 400);
         frame.setLocationRelativeTo(null);
-        frame.setVisible(this.draw);
+        frame.setVisible(true);
+
     }
 
     private void subOfSum() {
@@ -172,17 +178,9 @@ public class Branch_Bound {
                 String path = parent.getPath();
                 for (int i = 0; i < path.length(); i++) {
                     subSet[i] = path.charAt(i) - '0';
-                }
-                tempResult.add(target);
-                results.add(tempResult);
-                resultPath.add(subSet);
-                for(ArrayList<Integer> i :results) {
-                    System.out.println(i);
-                }
-                for(int[] i : resultPath){
-                    for(int j : i) {
-                        System.out.print(j + " ");
-                    }
+                    System.out.print(subSet[i] + " ");
+                    System.out.print(numbers[i] + " " + "\n");
+
                 }
 
                 for (int i = path.length(); i < numbers.length; i++) {
@@ -218,17 +216,24 @@ public class Branch_Bound {
         return new Dimension(width, height);
     }
 
-    public ArrayList<int[]> getSubset() {
-        return resultPath;
-    }
-
-    public ArrayList<ArrayList<Integer>> getNumbers() {
-        return results;
-    }
-
     public static void main(String[] args) {
-        int[] numbers = {5, 10, 12, 13, 15, 18};
+        int[] numbers = { 5, 10, 12, 13, 15, 18 };
         int target = 30;
-        Branch_Bound bnb = new Branch_Bound(numbers, target, true);
+        Branch_Bound bnb = new Branch_Bound(numbers, target);
     }
+
+    public int[] getSubSet() {
+        return subSet;
+    }
+
+    public ArrayList<Integer> getArraySubset() {
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        for (int num = 0; num < subSet.length; num++) {
+            if (subSet[num] == 1) {
+                arr.add(numbers[num]);
+            }
+        }
+        return arr;
+    }
+
 }
